@@ -1,8 +1,4 @@
-#write out description
-#Extract Verbs and Nouns
-#Verbs will be methods
-#Nouns will be Classes
-
+#Pseudo 
 #Rock, Paper, Scissors
 #Player chooses Rock, Paper, Scissors
 #Computer chooses Rock, Paper, Scissors
@@ -31,7 +27,6 @@ class Computer < Player
   end
 end
 
-
 class Game
 CHOICES = {'r' => "Rock", 'p' => "Paper", 's' => "Scissors"}
 
@@ -49,42 +44,36 @@ attr_reader :player, :computer
 
   def compare_choices
     if player.choice == computer.choice
-      puts "It's a Tie!"
+      player && computer
     elsif (player.choice == 'p' && computer.choice == 'r') ||
           (player.choice == 'r' && computer.choice == 's') ||
           (player.choice == 's' && computer.choice == 'p')
-          puts "============================================="
-          winning_message(player.choice)
-          puts "#{player.name} wins!"
-          puts "============================================="
+      player
     else
-      puts "============================================="
-      winning_message(computer.choice)
-      puts "#{computer.name} wins!"
-      puts "============================================="
+      computer
     end
   end
 
-  def winning_message(winning_choice)
-    case winning_choice
-    when 'p'
-      puts "Paper smothers Rock!"
-    when 'r'
-      puts "Rock smashes Scissors!"
-    when 's'
-      puts "Scissors dice Paper!"
+  def winning_message
+    if compare_choices == player && computer
+      puts "============================================="
+      puts "It's a tie! #{player.name} and #{computer.name} are both winners!"
+    elsif compare_choices == player
+      puts "============================================="
+      puts "#{player.name} wins!!"
+    elsif compare_choices == computer
+      puts "============================================="
+      puts "#{computer.name} wins!"
     end
   end
 
   def play_again
     puts "Would you like to play again? (y/n)"
     response = gets.chomp.downcase
-
     if response == 'y'
       Game.new.play
     elsif response == 'n'
       puts "Goodbye"
-      exit
     end
   end
 
@@ -93,12 +82,10 @@ attr_reader :player, :computer
     player.pick_hand
     computer.pick_hand
     compare_choices
+    #winning_choice
+    winning_message
     play_again
   end
 end
 
 Game.new.play
-
-
-
-
